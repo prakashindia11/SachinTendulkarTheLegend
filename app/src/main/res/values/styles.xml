@@ -6,4 +6,11 @@
 
     </style>
 
+    <!-- Table Border -->
+    <style name="TableBorder">
+        <item name="android:layout_width">1dip</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/Black</item>
+    </style>
+
 </resources>

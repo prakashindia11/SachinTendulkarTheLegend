@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+
+    <TableLayout
+        android:id="@+id/TableLayout_MoMTestTable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:stretchColumns="*">
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 1 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Format"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Format"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Format_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 2 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Opponent"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Opponent"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Opponent_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 3 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row3"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Series"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Series"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Series_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 4 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row4"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_1ST_Innings_Runs"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="1st Innings Runs"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_1ST_Innings_Runs_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 5 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row5"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_2ND_Innings_Runs"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="2nd Innings Runs"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_2ND_Innings_Runs_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 6 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row6"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Bowling_Wickets"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Bowling Wickets"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Bowling_Wickets_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 7 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row7"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Catches"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Catches"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView__Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 8 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row8"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Venue"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Venue"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Venue_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 9 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row9"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Date"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Date"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Date_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+        <!-- Row 10 -->
+
+        <TableRow
+            android:id="@+id/TableRow_Row10"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/White">
+
+            <!-- Column 1 -->
+
+            <TextView
+                android:id="@+id/TextView_Result"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text="Result"
+                />
+
+            <!-- Column Border -->
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent" >
+                <View style="@style/TableBorder" />
+            </LinearLayout>
+
+            <!-- Column 2 -->
+
+            <TextView
+                android:id="@+id/TextView_Result_Value"
+                android:paddingLeft="5dp"
+
+                android:textColor="@color/Black"
+                android:text=""
+                />
+
+        </TableRow>
+
+        <!-- Row Border -->
+
+        <TableRow
+            android:layout_height="1px"
+            android:background="@color/Black">
+
+            <TextView
+                android:layout_span="2"
+                android:layout_height="1px"
+                android:layout_width="fill_parent" >
+            </TextView>
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 18-08-2016
+ * Last Edit : 13-09-2016
  */
 
 import android.content.*;
@@ -558,7 +558,7 @@ public class DBCenturies
             cv.put(KEY_4S,12);
             cv.put(KEY_6S,3);
             cv.put(KEY_STRIKE_RATE,102.29);
-            cv.put(KEY_VENUE,"");
+            cv.put(KEY_VENUE,"Sharjah Cricket Association, Sharjah");
             cv.put(KEY_DATE,"24 April 1998");
             cv.put(KEY_RESULT,"India won by 6 wickets (with 9 balls remaining)");
 

@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 18-08-2016.
- * Last Edit : 26-08-2016
+ * Last Edit : 13-09-2016
  */
 
 import android.content.*;
@@ -11,6 +11,7 @@ import android.database.sqlite.*;
 
 public class DBMoS
 {
+    private static  final String KEY_MOS_NO = "column_format";
     private static  final String KEY_FORMAT = "column_format";
     private static  final String KEY_SERIES = "column_series";
     private static  final String KEY_OPPONENTS = "column_opponents";
@@ -48,7 +49,8 @@ public class DBMoS
         @Override
         public void onCreate(SQLiteDatabase db)
         {
-            String queryStatement = "create table " + DATABASE_TABLE + " (" + KEY_FORMAT + " text not null, "
+            String queryStatement = "create table " + DATABASE_TABLE + " (" + KEY_MOS_NO + " integer not null primary key autoincrement, "
+                    + KEY_FORMAT + " text not null, "
                     + KEY_SERIES + " text not null, "
                     + KEY_OPPONENTS + " text not null, "
                     + KEY_MATCHES + " integer not null,"
@@ -61,8 +63,7 @@ public class DBMoS
                     + KEY_100S + " integer not null, "
                     + KEY_50S + " integer not null, "
                     + KEY_BOWLING_WICKETS + " text not null, "
-                    + KEY_CATCHES + " integer not null, " +
-                    "primary key (" + KEY_FORMAT + "," + KEY_SERIES + "," + KEY_OPPONENTS  + "));"
+                    + KEY_CATCHES + " integer not null);"
                     ;
 
             db.execSQL(queryStatement);
