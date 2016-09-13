@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 06-09-2016
+ * Last Edit : 13-09-2016
  */
 
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +26,7 @@ public class ActivityHome extends Activity implements View.OnClickListener
         /* Program for Full Screen */
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.home);
 
         initializeDataBases();
