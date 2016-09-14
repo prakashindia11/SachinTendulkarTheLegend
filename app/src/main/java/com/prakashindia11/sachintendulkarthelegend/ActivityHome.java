@@ -2,9 +2,10 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 14-09-2016
  */
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.*;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class ActivityHome extends Activity implements View.OnClickListener
 {
 
     Button ButtonBiography, ButtonCenturies, ButtonMOM, ButtonMOS, ButtonRecords,ButtonAwards;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -83,7 +85,8 @@ public class ActivityHome extends Activity implements View.OnClickListener
 
         if(v.getId() == R.id.Button_Centuries)
         {
-
+            intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityCenturiesList");
+            startActivity(intent);
         }
 
         if(v.getId() == R.id.Button_MOM)

@@ -3,7 +3,11 @@
 
     <color name="Blue">#001632</color>
     <color name="Black">#000000</color>
+    <color name="Green">#008000</color>
     <color name="Grey">#E0E0F2</color>
+    <color name="LightYellow">#F5FBB7</color>
+    <color name="Saffron">#FF9933</color>
+    <color name="SkyBlue">#98CBF6</color>
     <color name="White">#FFFFFF</color>
 
 </resources>

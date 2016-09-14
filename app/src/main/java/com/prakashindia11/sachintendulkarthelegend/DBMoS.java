@@ -11,7 +11,7 @@ import android.database.sqlite.*;
 
 public class DBMoS
 {
-    private static  final String KEY_MOS_NO = "column_format";
+    private static  final String KEY_MOS_NO = "column_mos_no";
     private static  final String KEY_FORMAT = "column_format";
     private static  final String KEY_SERIES = "column_series";
     private static  final String KEY_OPPONENTS = "column_opponents";
