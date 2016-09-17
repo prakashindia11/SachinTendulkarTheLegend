@@ -1,16 +1,18 @@
 package com.prakashindia11.sachintendulkarthelegend;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.*;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.*;
+import android.view.animation.Animation;
 import android.widget.TabHost.*;
 import android.widget.*;
 /**
- * Created by Prakash on 14-09-2016.
+ * Created by Prakash on 15-09-2016.
  * Last Edit : 15-09-2016
  */
-public class ActivityCenturiesList extends Activity
+public class ActivityMoMList extends Activity
 {
     TabHost tabHost;
     TabSpec tabSpec;
@@ -26,47 +28,31 @@ public class ActivityCenturiesList extends Activity
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.centurieslist);
+        setContentView(R.layout.momlist);
 
         initializeTab();
     }
 
+    @SuppressLint("NewApi")
     private void initializeTab()
     {
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
         tabHost.getTabWidget().setStripEnabled(true);
 
-        tabSpec = tabHost.newTabSpec("All");
-        tabSpec.setContent(R.id.linearLayout_All);
-        tabSpec.setIndicator("All");
-        tabHost.addTab(tabSpec);
-        tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FF9933"));
-        initializeListAll();
-
         tabSpec = tabHost.newTabSpec("Test");
         tabSpec.setContent(R.id.linearLayout_Test);
         tabSpec.setIndicator("Test");
         tabHost.addTab(tabSpec);
-        tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#FFFFFF"));
+        tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FFFFFF"));
         initializeListTest();
 
         tabSpec = tabHost.newTabSpec("ODI");
         tabSpec.setContent(R.id.linearLayout_ODI);
         tabSpec.setIndicator("ODI");
         tabHost.addTab(tabSpec);
-        tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#008000"));
+        tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#98CBF6"));
         initializeListODI();
-    }
-
-    private void initializeListAll()
-    {
-        String[] listAll = {"Century 1","Century 2","Century 3","Century 4","Century 5","Century 6","Century 7",
-                "Century 8","Century 9","Century 10","Century 11","Century 12","Century 13","Century 14","Century 15"};
-
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, listAll);
-        listView = (ListView) findViewById(R.id.ListView_All);
-        listView.setAdapter(listAdapter);
     }
 
     private void initializeListTest()
@@ -88,4 +74,5 @@ public class ActivityCenturiesList extends Activity
         listView = (ListView) findViewById(R.id.ListView_ODI);
         listView.setAdapter(listAdapter);
     }
+
 }

@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 14-09-2016
+ * Last Edit : 15-09-2016
  */
 
 import android.content.Intent;
@@ -91,12 +91,14 @@ public class ActivityHome extends Activity implements View.OnClickListener
 
         if(v.getId() == R.id.Button_MOM)
         {
-
+            intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityMoMList");
+            startActivity(intent);
         }
 
         if(v.getId() == R.id.Button_MOS)
         {
-
+            intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityMoSList");
+            startActivity(intent);
         }
 
         if(v.getId() == R.id.Button_Records)
