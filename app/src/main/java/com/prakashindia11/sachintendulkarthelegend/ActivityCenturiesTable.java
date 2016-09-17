@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 17-09-2016
  */
 public class ActivityCenturiesTable extends Activity
 {
@@ -27,6 +27,7 @@ public class ActivityCenturiesTable extends Activity
         setContentView(R.layout.centuriestable);
 
         initializeTextViews();
+        setTextViews();
     }
 
     private void initializeTextViews()
@@ -43,5 +44,29 @@ public class ActivityCenturiesTable extends Activity
         TextViewVenue = (TextView) findViewById(R.id.TextView_Venue_Value);
         TextViewDate = (TextView) findViewById(R.id.TextView_Date_Value);
         TextViewResult = (TextView) findViewById(R.id.TextView_Result_Value);
+    }
+
+    private void setTextViews()
+    {
+        Bundle bundle = getIntent().getExtras();
+        String centuryNumber = bundle.getString("centuryNumber");
+
+        DBCenturies dbCenturies = new DBCenturies(this);
+        dbCenturies.openDatabase();
+        CenturyDetails centuryDetails = dbCenturies.getCenturyDetails(centuryNumber);
+        dbCenturies.closeDatabase();
+
+        TextViewCenturyNumber.setText(centuryDetails.centuryNumber);
+        TextViewFormat.setText(centuryDetails.format);
+        TextViewOpponent.setText(centuryDetails.opponent);
+        TextViewSeries.setText(centuryDetails.series);
+        TextViewRuns.setText(centuryDetails.runs);
+        TextViewBalls.setText(centuryDetails.balls);
+        TextView4S.setText(centuryDetails.fours);
+        TextView6S.setText(centuryDetails.sixes);
+        TextViewStrikeRate.setText(centuryDetails.strikeRate);
+        TextViewVenue.setText(centuryDetails.venue);
+        TextViewDate.setText(centuryDetails.date);
+        TextViewResult.setText(centuryDetails.result);
     }
 }

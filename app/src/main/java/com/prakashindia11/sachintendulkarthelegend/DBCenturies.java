@@ -2,12 +2,14 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 17-09-2016
  */
 
 import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
+
+import java.util.ArrayList;
 
 public class DBCenturies
 {
@@ -1687,5 +1689,75 @@ public class DBCenturies
     public void closeDatabase() throws SQLException
     {
         mydbhelper.close();
+    }
+
+    public ArrayList<String> getCenturyNumber(String format)
+    {
+        ArrayList<String> centuryNumber = new ArrayList<String>();
+        String queryStatement;
+        Cursor cursor;
+
+        if(format.equals("all"))
+        {
+            queryStatement = "select " + KEY_CENTURY_NUMBER + " from " + DATABASE_TABLE;
+            cursor = mysqlitedb.rawQuery(queryStatement,null);
+        }
+        else
+        {
+            queryStatement = "select " + KEY_CENTURY_NUMBER + " from " + DATABASE_TABLE + " where "
+                + KEY_FORMAT + " = '" + format + "'";
+            cursor = mysqlitedb.rawQuery(queryStatement,null);
+        }
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                centuryNumber.add("Century " + cursor.getString(cursor.getColumnIndexOrThrow(KEY_CENTURY_NUMBER)));
+            }
+            while (cursor.moveToNext());
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return centuryNumber;
+    }
+
+    public CenturyDetails getCenturyDetails(String centuryNumber)
+    {
+        CenturyDetails centuryDetails = new CenturyDetails();
+        String queryStatement;
+        Cursor cursor;
+
+        queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_CENTURY_NUMBER + " = '"
+        + centuryNumber + "'";
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            centuryDetails.centuryNumber = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CENTURY_NUMBER));
+            centuryDetails.format = cursor.getString(cursor.getColumnIndexOrThrow(KEY_FORMAT));
+            centuryDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT));
+            centuryDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
+            centuryDetails.runs = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RUNS));;
+            centuryDetails.balls = cursor.getString(cursor.getColumnIndexOrThrow(KEY_BALLS));
+            centuryDetails.fours = cursor.getString(cursor.getColumnIndexOrThrow(KEY_4S));
+            centuryDetails.sixes = cursor.getString(cursor.getColumnIndexOrThrow(KEY_6S));
+            centuryDetails.strikeRate = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STRIKE_RATE));
+            centuryDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
+            centuryDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
+            centuryDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return centuryDetails;
     }
 }

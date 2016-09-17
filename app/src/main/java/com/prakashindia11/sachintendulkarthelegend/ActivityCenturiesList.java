@@ -1,21 +1,25 @@
 package com.prakashindia11.sachintendulkarthelegend;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.*;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TabHost.*;
 import android.widget.*;
+
+import java.util.ArrayList;
+
 /**
  * Created by Prakash on 14-09-2016.
- * Last Edit : 15-09-2016
+ * Last Edit : 17-09-2016
  */
 public class ActivityCenturiesList extends Activity
 {
+    Intent intent;
+    ListView listView;
     TabHost tabHost;
     TabSpec tabSpec;
-
-    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,31 +65,77 @@ public class ActivityCenturiesList extends Activity
 
     private void initializeListAll()
     {
-        String[] listAll = {"Century 1","Century 2","Century 3","Century 4","Century 5","Century 6","Century 7",
-                "Century 8","Century 9","Century 10","Century 11","Century 12","Century 13","Century 14","Century 15"};
+        DBCenturies dbCenturies = new DBCenturies(this);
+        dbCenturies.openDatabase();
+        ArrayList<String> centuryNumber = dbCenturies.getCenturyNumber("all");
+        dbCenturies.closeDatabase();
 
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, listAll);
+        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, centuryNumber);
         listView = (ListView) findViewById(R.id.ListView_All);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        callCenturiesTableActivity(parent,position);
+                    }
+                }
+        );
     }
 
     private void initializeListTest()
     {
-        String[] listTest = {"Century 10","Century 20","Century 30","Century 40","Century 50","Century 60","Century 70",
-                "Century 80","Century 90","Century 100"};
+        DBCenturies dbCenturies = new DBCenturies(this);
+        dbCenturies.openDatabase();
+        ArrayList<String> centuryNumber = dbCenturies.getCenturyNumber("Test");
+        dbCenturies.closeDatabase();
 
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, listTest);
+        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, centuryNumber);
         listView = (ListView) findViewById(R.id.ListView_Test);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        callCenturiesTableActivity(parent,position);
+                    }
+                }
+        );
     }
 
     private void initializeListODI()
     {
-        String[] listODI = {"Century 11","Century 21","Century 31","Century 41","Century 51","Century 61","Century 71",
-                "Century 81","Century 91","Century 100"};
+        DBCenturies dbCenturies = new DBCenturies(this);
+        dbCenturies.openDatabase();
+        ArrayList<String> centuryNumber = dbCenturies.getCenturyNumber("ODI");
+        dbCenturies.closeDatabase();
 
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, listODI);
+        ListAdapter listAdapter = new ArrayAdapter<String>(this, R.layout.list_black_text,R.id.list_content, centuryNumber);
         listView = (ListView) findViewById(R.id.ListView_ODI);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        callCenturiesTableActivity(parent,position);
+                    }
+                }
+        );
+    }
+
+    private void callCenturiesTableActivity(AdapterView<?> parent, int position)
+    {
+        String centuryNumber = String.valueOf(parent.getItemAtPosition(position)).replaceAll("[^0-9]","");
+        Bundle bundle = new Bundle();
+        bundle.putString("centuryNumber",centuryNumber);
+        intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityCenturiesTable");
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
