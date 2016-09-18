@@ -727,55 +727,5 @@
             </TextView>
         </TableRow>
 
-        <!-- Row  -->
-
-        <TableRow
-            android:id="@+id/TableRow_Row"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:background="@color/White">
-
-            <!-- Column 1 -->
-
-            <TextView
-                android:id="@+id/TextView_"
-                android:paddingLeft="5dp"
-
-                android:textColor="@color/Black"
-                android:text=""
-                />
-
-            <!-- Column Border -->
-            <LinearLayout
-                android:layout_width="1dp"
-                android:layout_height="match_parent" >
-                <View style="@style/TableBorder" />
-            </LinearLayout>
-
-            <!-- Column 2 -->
-
-            <TextView
-                android:id="@+id/TextView__Value"
-                android:paddingLeft="5dp"
-
-                android:textColor="@color/Black"
-                android:text=""
-                />
-
-        </TableRow>
-
-        <!-- Row Border -->
-
-        <TableRow
-            android:layout_height="1px"
-            android:background="@color/Black">
-
-            <TextView
-                android:layout_span="2"
-                android:layout_height="1px"
-                android:layout_width="fill_parent" >
-            </TextView>
-        </TableRow>
-
     </TableLayout>
 </LinearLayout>

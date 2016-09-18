@@ -2,12 +2,14 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 18-08-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 18-09-2016
  */
 
 import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
+
+import java.util.ArrayList;
 
 public class DBMoS
 {
@@ -364,7 +366,7 @@ public class DBMoS
 
             /* Man of the Series Number : 1 */
             cv.put(KEY_FORMAT,"Test");
-            cv.put(KEY_SERIES,"Border-Gavaskar Trophy 1997/98 (Australia in India Test Series)");
+            cv.put(KEY_SERIES,"Australia in India Test Series 1997/98");
             cv.put(KEY_OPPONENTS,"Australia");
             cv.put(KEY_MATCHES,3);
             cv.put(KEY_INNINGS,5);
@@ -382,7 +384,7 @@ public class DBMoS
 
             /* Man of the Series Number : 2 */
             cv.put(KEY_FORMAT,"Test");
-            cv.put(KEY_SERIES,"Border-Gavaskar Trophy 1999/00 (India in Australia Test Series)");
+            cv.put(KEY_SERIES,"India in Australia Test Series 1999/00");
             cv.put(KEY_OPPONENTS,"Australia");
             cv.put(KEY_MATCHES,3);
             cv.put(KEY_INNINGS,6);
@@ -436,7 +438,7 @@ public class DBMoS
 
             /* Man of the Series Number : 5 */
             cv.put(KEY_FORMAT,"Test");
-            cv.put(KEY_SERIES,"Border-Gavaskar Trophy 2010/11 (Australia in India Test Series)");
+            cv.put(KEY_SERIES,"Australia in India Test Series 2010/11");
             cv.put(KEY_OPPONENTS,"Australia");
             cv.put(KEY_MATCHES,1);
             cv.put(KEY_INNINGS,4);
@@ -489,5 +491,70 @@ public class DBMoS
     public void closeDatabase() throws SQLException
     {
         mydbhelper.close();
+    }
+
+    public ArrayList<String> getSeries(String format)
+    {
+        ArrayList<String> series = new ArrayList<String>();
+        String queryStatement;
+        Cursor cursor;
+
+        queryStatement = "select " + KEY_SERIES + " from " + DATABASE_TABLE + " where "
+                + KEY_FORMAT + " = '" + format + "'";
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                series.add(cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES)));
+            }
+            while (cursor.moveToNext());
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return series;
+    }
+
+    public ContainerMoSDetails getMoSDetails(String series)
+    {
+        ContainerMoSDetails containerMoSDetails = new ContainerMoSDetails();
+        String queryStatement;
+        Cursor cursor;
+
+        queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_SERIES + " = '"
+                + series + "'";
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            containerMoSDetails.format = cursor.getString(cursor.getColumnIndexOrThrow(KEY_FORMAT));
+            containerMoSDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
+            containerMoSDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENTS));
+            containerMoSDetails.matches = cursor.getString(cursor.getColumnIndexOrThrow(KEY_MATCHES));
+            containerMoSDetails.innings = cursor.getString(cursor.getColumnIndexOrThrow(KEY_INNINGS));
+            containerMoSDetails.notOut = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NOT_OUT));
+            containerMoSDetails.runs = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RUNS));
+            containerMoSDetails.highScore = cursor.getString(cursor.getColumnIndexOrThrow(KEY_HIGH_SCORE));
+            containerMoSDetails.average = cursor.getString(cursor.getColumnIndexOrThrow(KEY_AVERAGE));
+            containerMoSDetails.strikeRate = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STRIKE_RATE));
+            containerMoSDetails.hundreds = cursor.getString(cursor.getColumnIndexOrThrow(KEY_100S));
+            containerMoSDetails.fifties = cursor.getString(cursor.getColumnIndexOrThrow(KEY_50S));
+            containerMoSDetails.bowlingWickets = cursor.getString(cursor.getColumnIndexOrThrow(KEY_BOWLING_WICKETS));
+            containerMoSDetails.catches = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CATCHES));
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return containerMoSDetails;
     }
 }

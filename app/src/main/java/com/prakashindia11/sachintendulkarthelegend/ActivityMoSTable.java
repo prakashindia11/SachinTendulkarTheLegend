@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 18-09-2016
  */
 public class ActivityMoSTable extends Activity
 {
@@ -27,6 +27,7 @@ public class ActivityMoSTable extends Activity
         setContentView(R.layout.mostable);
 
         initializeTextViews();
+        setTextViews();
     }
 
     private void initializeTextViews()
@@ -45,5 +46,31 @@ public class ActivityMoSTable extends Activity
         TextView50S = (TextView) findViewById(R.id.TextView_50S_Value);
         TextViewBowlingWickets = (TextView) findViewById(R.id.TextView_Bowling_Wickets_Value);
         TextViewCatches = (TextView) findViewById(R.id.TextView_Catches_Value);
+    }
+
+    private void setTextViews()
+    {
+        Bundle bundle = getIntent().getExtras();
+        String series = bundle.getString("series");
+
+        DBMoS dbMoS = new DBMoS(this);
+        dbMoS.openDatabase();
+        ContainerMoSDetails containerMoSDetails = dbMoS.getMoSDetails(series);
+        dbMoS.closeDatabase();
+
+        TextViewFormat.setText(containerMoSDetails.format);
+        TextViewSeries.setText(containerMoSDetails.series);
+        TextViewOpponent.setText(containerMoSDetails.opponent);
+        TextViewMatches.setText(containerMoSDetails.matches);
+        TextViewInnings.setText(containerMoSDetails.innings);
+        TextViewNotOut.setText(containerMoSDetails.notOut);
+        TextViewRuns.setText(containerMoSDetails.runs);
+        TextViewHighScore.setText(containerMoSDetails.highScore);
+        TextViewAverage.setText(containerMoSDetails.average);
+        TextViewStrikeRate.setText(containerMoSDetails.strikeRate);
+        TextView100S.setText(containerMoSDetails.hundreds);
+        TextView50S.setText(containerMoSDetails.fifties);
+        TextViewBowlingWickets.setText(containerMoSDetails.bowlingWickets);
+        TextViewCatches.setText(containerMoSDetails.catches);
     }
 }
