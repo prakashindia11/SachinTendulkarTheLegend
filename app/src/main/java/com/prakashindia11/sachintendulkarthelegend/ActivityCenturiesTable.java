@@ -53,20 +53,20 @@ public class ActivityCenturiesTable extends Activity
 
         DBCenturies dbCenturies = new DBCenturies(this);
         dbCenturies.openDatabase();
-        CenturyDetails centuryDetails = dbCenturies.getCenturyDetails(centuryNumber);
+        ContainerCenturyDetails containerCenturyDetails = dbCenturies.getCenturyDetails(centuryNumber);
         dbCenturies.closeDatabase();
 
-        TextViewCenturyNumber.setText(centuryDetails.centuryNumber);
-        TextViewFormat.setText(centuryDetails.format);
-        TextViewOpponent.setText(centuryDetails.opponent);
-        TextViewSeries.setText(centuryDetails.series);
-        TextViewRuns.setText(centuryDetails.runs);
-        TextViewBalls.setText(centuryDetails.balls);
-        TextView4S.setText(centuryDetails.fours);
-        TextView6S.setText(centuryDetails.sixes);
-        TextViewStrikeRate.setText(centuryDetails.strikeRate);
-        TextViewVenue.setText(centuryDetails.venue);
-        TextViewDate.setText(centuryDetails.date);
-        TextViewResult.setText(centuryDetails.result);
+        TextViewCenturyNumber.setText(containerCenturyDetails.centuryNumber);
+        TextViewFormat.setText(containerCenturyDetails.format);
+        TextViewOpponent.setText(containerCenturyDetails.opponent);
+        TextViewSeries.setText(containerCenturyDetails.series);
+        TextViewRuns.setText(containerCenturyDetails.runs);
+        TextViewBalls.setText(containerCenturyDetails.balls);
+        TextView4S.setText(containerCenturyDetails.fours);
+        TextView6S.setText(containerCenturyDetails.sixes);
+        TextViewStrikeRate.setText(containerCenturyDetails.strikeRate);
+        TextViewVenue.setText(containerCenturyDetails.venue);
+        TextViewDate.setText(containerCenturyDetails.date);
+        TextViewResult.setText(containerCenturyDetails.result);
     }
 }

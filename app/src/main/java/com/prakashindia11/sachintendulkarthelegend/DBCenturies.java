@@ -1726,9 +1726,9 @@ public class DBCenturies
         return centuryNumber;
     }
 
-    public CenturyDetails getCenturyDetails(String centuryNumber)
+    public ContainerCenturyDetails getCenturyDetails(String centuryNumber)
     {
-        CenturyDetails centuryDetails = new CenturyDetails();
+        ContainerCenturyDetails containerCenturyDetails = new ContainerCenturyDetails();
         String queryStatement;
         Cursor cursor;
 
@@ -1739,18 +1739,18 @@ public class DBCenturies
 
         if(cursor.moveToFirst())
         {
-            centuryDetails.centuryNumber = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CENTURY_NUMBER));
-            centuryDetails.format = cursor.getString(cursor.getColumnIndexOrThrow(KEY_FORMAT));
-            centuryDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT));
-            centuryDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
-            centuryDetails.runs = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RUNS));;
-            centuryDetails.balls = cursor.getString(cursor.getColumnIndexOrThrow(KEY_BALLS));
-            centuryDetails.fours = cursor.getString(cursor.getColumnIndexOrThrow(KEY_4S));
-            centuryDetails.sixes = cursor.getString(cursor.getColumnIndexOrThrow(KEY_6S));
-            centuryDetails.strikeRate = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STRIKE_RATE));
-            centuryDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
-            centuryDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
-            centuryDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
+            containerCenturyDetails.centuryNumber = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CENTURY_NUMBER));
+            containerCenturyDetails.format = cursor.getString(cursor.getColumnIndexOrThrow(KEY_FORMAT));
+            containerCenturyDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT));
+            containerCenturyDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
+            containerCenturyDetails.runs = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RUNS));;
+            containerCenturyDetails.balls = cursor.getString(cursor.getColumnIndexOrThrow(KEY_BALLS));
+            containerCenturyDetails.fours = cursor.getString(cursor.getColumnIndexOrThrow(KEY_4S));
+            containerCenturyDetails.sixes = cursor.getString(cursor.getColumnIndexOrThrow(KEY_6S));
+            containerCenturyDetails.strikeRate = cursor.getString(cursor.getColumnIndexOrThrow(KEY_STRIKE_RATE));
+            containerCenturyDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
+            containerCenturyDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
+            containerCenturyDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
         }
 
         if(!cursor.isClosed())
@@ -1758,6 +1758,6 @@ public class DBCenturies
             cursor.close();
         }
 
-        return centuryDetails;
+        return containerCenturyDetails;
     }
 }
