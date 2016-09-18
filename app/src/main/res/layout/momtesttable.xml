@@ -355,7 +355,7 @@
             <!-- Column 2 -->
 
             <TextView
-                android:id="@+id/TextView__Value"
+                android:id="@+id/TextView_Catches_Value"
                 android:paddingLeft="5dp"
 
                 android:textColor="@color/Black"

@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 18-09-2016
  */
 public class ActivityMoMTestTable extends Activity
 {
@@ -27,6 +27,7 @@ public class ActivityMoMTestTable extends Activity
         setContentView(R.layout.momtesttable);
 
         initializeTextViews();
+        setTextView();
     }
 
     private void initializeTextViews()
@@ -41,5 +42,28 @@ public class ActivityMoMTestTable extends Activity
         TextViewVenue = (TextView) findViewById(R.id.TextView_Venue_Value);
         TextViewDate = (TextView) findViewById(R.id.TextView_Date_Value);
         TextViewResult = (TextView) findViewById(R.id.TextView_Result_Value);
+    }
+
+    private void setTextView()
+    {
+        Bundle bundle = getIntent().getExtras();
+        String opponent = bundle.getString("opponent");
+        String date = bundle.getString("date");
+
+        DBMoMTest dbMoMTest = new DBMoMTest(this);
+        dbMoMTest.openDatabase();
+        ContainerMoMTestDetails containerMoMTestDetails = dbMoMTest.getMoMTestDetails(opponent,date);
+        dbMoMTest.closeDatabase();
+
+        TextViewFormat.setText(containerMoMTestDetails.format);
+        TextViewOpponent.setText(containerMoMTestDetails.opponent);
+        TextViewSeries.setText(containerMoMTestDetails.series);
+        TextView1stInningsRuns.setText(containerMoMTestDetails.firstInningsRuns);
+        TextView2ndInningsRuns.setText(containerMoMTestDetails.secondInningsRuns);
+        TextViewBowlingWickets.setText(containerMoMTestDetails.bowlingWickets);
+        TextViewCatches.setText(containerMoMTestDetails.catches);
+        TextViewVenue.setText(containerMoMTestDetails.venue);
+        TextViewDate.setText(containerMoMTestDetails.date);
+        TextViewResult.setText(containerMoMTestDetails.result);
     }
 }

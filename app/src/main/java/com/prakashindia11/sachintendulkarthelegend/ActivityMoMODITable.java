@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 13-09-2016
+ * Last Edit : 18-09-2016
  */
 public class ActivityMoMODITable extends Activity
 {
@@ -27,6 +27,7 @@ public class ActivityMoMODITable extends Activity
         setContentView(R.layout.momoditable);
 
         initializeTextViews();
+        setTextView();
     }
 
     private void initializeTextViews()
@@ -45,5 +46,31 @@ public class ActivityMoMODITable extends Activity
         TextViewDate = (TextView) findViewById(R.id.TextView_Date_Value);
         TextViewResult = (TextView) findViewById(R.id.TextView_Result_Value);
 
+    }
+
+    private void setTextView()
+    {
+        Bundle bundle = getIntent().getExtras();
+        String opponent = bundle.getString("opponent");
+        String date = bundle.getString("date");
+
+        DBMoMODI dbMoMODI = new DBMoMODI(this);
+        dbMoMODI.openDatabase();
+        ContainerMoMODIDetails containerMoMODIDetails = dbMoMODI.getMoMODIDetails(opponent,date);
+        dbMoMODI.closeDatabase();
+
+        TextViewFormat.setText(containerMoMODIDetails.format);
+        TextViewOpponent.setText(containerMoMODIDetails.opponent);
+        TextViewSeries.setText(containerMoMODIDetails.series);
+        TextViewRuns.setText(containerMoMODIDetails.runs);
+        TextViewBalls.setText(containerMoMODIDetails.balls);
+        TextView4S.setText(containerMoMODIDetails.fours);
+        TextView6S.setText(containerMoMODIDetails.sixes);
+        TextViewStrikeRate.setText(containerMoMODIDetails.strikeRate);
+        TextViewBowlingWickets.setText(containerMoMODIDetails.bowlingWickets);
+        TextViewCatches.setText(containerMoMODIDetails.catches);
+        TextViewVenue.setText(containerMoMODIDetails.venue);
+        TextViewDate.setText(containerMoMODIDetails.date);
+        TextViewResult.setText(containerMoMODIDetails.result);
     }
 }

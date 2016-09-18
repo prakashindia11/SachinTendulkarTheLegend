@@ -2,12 +2,14 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 30-08-2016.
- * Last Edit : 30-08-2016
+ * Last Edit : 18-09-2016
  */
 
 import android.content.*;
 import android.database.*;
 import android.database.sqlite.*;
+
+import java.util.ArrayList;
 
 public class DBMoMTest
 {
@@ -277,5 +279,65 @@ public class DBMoMTest
     public void closeDatabase() throws SQLException
     {
         mydbhelper.close();
+    }
+
+    public ArrayList<String> getOpponentAndDate()
+    {
+        ArrayList<String> opponentAndDate = new ArrayList<String>();
+        String queryStatement;
+        Cursor cursor;
+
+        queryStatement = "select * from " + DATABASE_TABLE;
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                opponentAndDate.add(cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT)) + ", " +
+                        cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE)));
+            }
+            while (cursor.moveToNext());
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return opponentAndDate;
+    }
+
+    public ContainerMoMTestDetails getMoMTestDetails(String opponent, String date)
+    {
+        ContainerMoMTestDetails containerMoMTestDetails = new ContainerMoMTestDetails();
+        String queryStatement;
+        Cursor cursor;
+
+        queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_OPPONENT + " = '"
+                + opponent + "' and " + KEY_DATE + " = '" + date + "'";;
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            containerMoMTestDetails.format = cursor.getString(cursor.getColumnIndexOrThrow(KEY_FORMAT));
+            containerMoMTestDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT));
+            containerMoMTestDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
+            containerMoMTestDetails.firstInningsRuns = cursor.getString(cursor.getColumnIndexOrThrow(KEY_1st_INNINGS_RUNS));
+            containerMoMTestDetails.secondInningsRuns = cursor.getString(cursor.getColumnIndexOrThrow(KEY_2nd_INNINGS_RUNS));
+            containerMoMTestDetails.bowlingWickets = cursor.getString(cursor.getColumnIndexOrThrow(KEY_BOWLING_WICKETS));
+            containerMoMTestDetails.catches = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CATCHES));
+            containerMoMTestDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
+            containerMoMTestDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
+            containerMoMTestDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return containerMoMTestDetails;
     }
 }
