@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 15-09-2016
+ * Last Edit : 19-09-2016
  */
 
 import android.content.Intent;
@@ -103,7 +103,8 @@ public class ActivityHome extends Activity implements View.OnClickListener
 
         if(v.getId() == R.id.Button_Records)
         {
-
+            intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityRecords");
+            startActivity(intent);
         }
 
         if(v.getId() == R.id.Button_Awards)
