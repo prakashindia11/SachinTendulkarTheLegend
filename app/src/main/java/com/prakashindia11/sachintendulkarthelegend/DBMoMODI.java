@@ -150,7 +150,7 @@ public class DBMoMODI
             cv.put(KEY_BOWLING_WICKETS,"1");
             cv.put(KEY_CATCHES,0);
             cv.put(KEY_VENUE,"Sydney Cricket Ground, Sydney");
-            cv.put(KEY_DATE," 4 March 1992");
+            cv.put(KEY_DATE,"4 March 1992");
             cv.put(KEY_RESULT,"India won by 43 runs");
 
             db.insert(DATABASE_TABLE,null,cv);
@@ -983,7 +983,7 @@ public class DBMoMODI
             cv.put(KEY_BOWLING_WICKETS,"0");
             cv.put(KEY_CATCHES,0);
             cv.put(KEY_VENUE,"Civil Service Cricket Club, Belfast");
-            cv.put(KEY_DATE," 29 June 2007");
+            cv.put(KEY_DATE,"29 June 2007");
             cv.put(KEY_RESULT,"India won by 6 wickets");
 
             db.insert(DATABASE_TABLE,null,cv);
