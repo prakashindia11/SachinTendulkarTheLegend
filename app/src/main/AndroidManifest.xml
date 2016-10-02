@@ -98,7 +98,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ActivityAwards"></activity>
+        <activity
+            android:name=".ActivityAwards"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.prakashindia11.sachintendulkarthelegend.ActivityAwards" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
     </application>
 
