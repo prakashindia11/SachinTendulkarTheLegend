@@ -30,7 +30,7 @@
             android:textColor="@color/White"
             android:textSize="25dp"
             android:typeface="serif"
-            android:text="Sachin Tendulkar"
+            android:text="Awards"
             />
 
     </RelativeLayout>
