@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 30-08-2016.
- * Last Edit : 18-09-2016
+ * Last Edit : 01-11-2016
  */
 
 import android.content.*;
@@ -331,6 +331,61 @@ public class DBMoMTest
             containerMoMTestDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
             containerMoMTestDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
             containerMoMTestDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return containerMoMTestDetails;
+    }
+
+    public ContainerMoMTestDetails getPreviousOrNextOpponentDate(String opponent, String date, String swipe)
+    {
+        ContainerMoMTestDetails containerMoMTestDetails = new ContainerMoMTestDetails();
+        Cursor cursor;
+        int momNo = 0;
+        String queryStatement;
+
+        queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_OPPONENT + " = '"
+                + opponent + "' and " + KEY_DATE + " = '" + date + "'";
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            momNo = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(KEY_MOM_NO)));;
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        if(swipe.equals("leftSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_MOM_NO + " > "
+                    + momNo + " order by " + KEY_MOM_NO;
+
+        }
+        else if(swipe.equals("rightSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_MOM_NO + " < "
+                    + momNo + " order by " + KEY_MOM_NO + " desc";
+        }
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            containerMoMTestDetails.opponent = cursor.getString(cursor.getColumnIndexOrThrow(KEY_OPPONENT));
+            containerMoMTestDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
+        }
+        else
+        {
+            containerMoMTestDetails.opponent = opponent;
+            containerMoMTestDetails.date = date;
         }
 
         if(!cursor.isClosed())

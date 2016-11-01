@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 18-09-2016
+ * Last Edit : 01-11-2016
  */
 public class ActivityMoMODITable extends Activity
 {
+    private GestureDetector gestureDetector;
+
+    String date,opponent;
+
     TextView TextViewFormat, TextViewOpponent, TextViewSeries, TextViewRuns;
     TextView TextViewBalls, TextView4S, TextView6S, TextViewStrikeRate, TextViewBowlingWickets;
     TextView TextViewCatches, TextViewVenue, TextViewDate, TextViewResult;
@@ -26,7 +31,13 @@ public class ActivityMoMODITable extends Activity
 
         setContentView(R.layout.momoditable);
 
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
         initializeTextViews();
+
+        Bundle bundle = getIntent().getExtras();
+        opponent = bundle.getString("opponent");
+        date = bundle.getString("date");
+
         setTextView();
     }
 
@@ -50,10 +61,6 @@ public class ActivityMoMODITable extends Activity
 
     private void setTextView()
     {
-        Bundle bundle = getIntent().getExtras();
-        String opponent = bundle.getString("opponent");
-        String date = bundle.getString("date");
-
         DBMoMODI dbMoMODI = new DBMoMODI(this);
         dbMoMODI.openDatabase();
         ContainerMoMODIDetails containerMoMODIDetails = dbMoMODI.getMoMODIDetails(opponent,date);
@@ -72,5 +79,81 @@ public class ActivityMoMODITable extends Activity
         TextViewVenue.setText(containerMoMODIDetails.venue);
         TextViewDate.setText(containerMoMODIDetails.date);
         TextViewResult.setText(containerMoMODIDetails.result);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if(gestureDetector.onTouchEvent(event))
+        {
+            return true;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    /* Event to perform on Left Swipe (Forward) */
+    private void onLeftSwipe()
+    {
+        String swipe = "leftSwipe";
+        DBMoMODI dbMoMODI = new DBMoMODI(this);
+        dbMoMODI.openDatabase();
+        ContainerMoMODIDetails containerMoMODIDetails = dbMoMODI.getPreviousOrNextOpponentDate(opponent,date,swipe);
+        dbMoMODI.closeDatabase();
+        opponent = containerMoMODIDetails.opponent;
+        date = containerMoMODIDetails.date;
+        setTextView();
+    }
+
+    /* Event to perform on Right Swipe (Backward) */
+    private void onRightSwipe()
+    {
+        String swipe = "rightSwipe";
+        DBMoMODI dbMoMODI = new DBMoMODI(this);
+        dbMoMODI.openDatabase();
+        ContainerMoMODIDetails containerMoMODIDetails = dbMoMODI.getPreviousOrNextOpponentDate(opponent,date,swipe);
+        dbMoMODI.closeDatabase();
+        opponent = containerMoMODIDetails.opponent;
+        date = containerMoMODIDetails.date;
+        setTextView();
+    }
+
+    private class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListener
+    {
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+        {
+            try
+            {
+                float differenceAbs = Math.abs(e1.getY() - e2.getY());
+                float difference = e1.getX() - e2.getX();
+
+                if(differenceAbs > SWIPE_MAX_OFF_PATH)
+                {
+                    return false;
+                }
+
+                /* Left Swipe */
+                if(difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoMODITable.this.onLeftSwipe();
+                }
+                /* Right Swipe */
+                else if(-difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoMODITable.this.onRightSwipe();
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
     }
 }

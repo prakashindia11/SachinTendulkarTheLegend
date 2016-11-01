@@ -7,10 +7,14 @@ import android.widget.TextView;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 18-09-2016
+ * Last Edit : 01-11-2016
  */
 public class ActivityMoMTestTable extends Activity
 {
+    private GestureDetector gestureDetector;
+
+    String date,opponent;
+
     TextView TextViewFormat, TextViewOpponent, TextViewSeries, TextView1stInningsRuns;
     TextView TextView2ndInningsRuns, TextViewBowlingWickets, TextViewCatches, TextViewVenue;
     TextView TextViewDate, TextViewResult;
@@ -26,7 +30,12 @@ public class ActivityMoMTestTable extends Activity
 
         setContentView(R.layout.momtesttable);
 
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
         initializeTextViews();
+
+        Bundle bundle = getIntent().getExtras();
+        opponent = bundle.getString("opponent");
+        date = bundle.getString("date");
         setTextView();
     }
 
@@ -46,10 +55,6 @@ public class ActivityMoMTestTable extends Activity
 
     private void setTextView()
     {
-        Bundle bundle = getIntent().getExtras();
-        String opponent = bundle.getString("opponent");
-        String date = bundle.getString("date");
-
         DBMoMTest dbMoMTest = new DBMoMTest(this);
         dbMoMTest.openDatabase();
         ContainerMoMTestDetails containerMoMTestDetails = dbMoMTest.getMoMTestDetails(opponent,date);
@@ -65,5 +70,81 @@ public class ActivityMoMTestTable extends Activity
         TextViewVenue.setText(containerMoMTestDetails.venue);
         TextViewDate.setText(containerMoMTestDetails.date);
         TextViewResult.setText(containerMoMTestDetails.result);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if(gestureDetector.onTouchEvent(event))
+        {
+            return true;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    /* Event to perform on Left Swipe (Forward) */
+    private void onLeftSwipe()
+    {
+        String swipe = "leftSwipe";
+        DBMoMTest dbMoMTest = new DBMoMTest(this);
+        dbMoMTest.openDatabase();
+        ContainerMoMTestDetails containerMoMTestDetails = dbMoMTest.getPreviousOrNextOpponentDate(opponent,date,swipe);
+        dbMoMTest.closeDatabase();
+        opponent = containerMoMTestDetails.opponent;
+        date = containerMoMTestDetails.date;
+        setTextView();
+    }
+
+    /* Event to perform on Right Swipe (Backward) */
+    private void onRightSwipe()
+    {
+        String swipe = "rightSwipe";
+        DBMoMTest dbMoMTest = new DBMoMTest(this);
+        dbMoMTest.openDatabase();
+        ContainerMoMTestDetails containerMoMTestDetails = dbMoMTest.getPreviousOrNextOpponentDate(opponent,date,swipe);
+        dbMoMTest.closeDatabase();
+        opponent = containerMoMTestDetails.opponent;
+        date = containerMoMTestDetails.date;
+        setTextView();
+    }
+
+    private class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListener
+    {
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+        {
+            try
+            {
+                float differenceAbs = Math.abs(e1.getY() - e2.getY());
+                float difference = e1.getX() - e2.getX();
+
+                if(differenceAbs > SWIPE_MAX_OFF_PATH)
+                {
+                    return false;
+                }
+
+                /* Left Swipe */
+                if(difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoMTestTable.this.onLeftSwipe();
+                }
+                /* Right Swipe */
+                else if(-difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoMTestTable.this.onRightSwipe();
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
     }
 }
