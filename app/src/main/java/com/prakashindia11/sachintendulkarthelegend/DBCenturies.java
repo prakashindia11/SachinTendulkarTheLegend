@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 17-08-2016.
- * Last Edit : 17-09-2016
+ * Last Edit : 02-11-2016
  */
 
 import android.content.*;
@@ -1751,6 +1751,46 @@ public class DBCenturies
             containerCenturyDetails.venue = cursor.getString(cursor.getColumnIndexOrThrow(KEY_VENUE));
             containerCenturyDetails.date = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DATE));
             containerCenturyDetails.result = cursor.getString(cursor.getColumnIndexOrThrow(KEY_RESULT));
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return containerCenturyDetails;
+    }
+
+    public ContainerCenturyDetails getPreviousOrNextCentury(String format,String centuryNumber,String swipe)
+    {
+        ContainerCenturyDetails containerCenturyDetails = new ContainerCenturyDetails();
+
+        Cursor cursor;
+        String queryStatement = null;
+
+        if(swipe.equals("leftSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_CENTURY_NUMBER + " > "
+                    + centuryNumber + " and " + KEY_FORMAT + " in ('" + format + "') order by " + KEY_CENTURY_NUMBER;
+
+        }
+        else if(swipe.equals("rightSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_CENTURY_NUMBER + " < "
+                    + centuryNumber + " and " + KEY_FORMAT + " in ('" + format + "') order by " + KEY_CENTURY_NUMBER
+                    + " desc";
+        }
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            containerCenturyDetails.centuryNumber = cursor.getString(cursor.getColumnIndexOrThrow(KEY_CENTURY_NUMBER));
+        }
+        else
+        {
+            containerCenturyDetails.centuryNumber = centuryNumber;
+
         }
 
         if(!cursor.isClosed())

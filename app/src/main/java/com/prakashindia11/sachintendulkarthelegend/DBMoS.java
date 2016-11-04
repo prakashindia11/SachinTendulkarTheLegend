@@ -2,7 +2,7 @@ package com.prakashindia11.sachintendulkarthelegend;
 
 /**
  * Created by Prakash on 18-08-2016.
- * Last Edit : 18-09-2016
+ * Last Edit : 02-11-2016
  */
 
 import android.content.*;
@@ -557,4 +557,61 @@ public class DBMoS
 
         return containerMoSDetails;
     }
+
+    public ContainerMoSDetails getPreviousOrNextSeries(String format,String series,String swipe)
+    {
+        ContainerMoSDetails containerMoSDetails = new ContainerMoSDetails();
+
+        Cursor cursor;
+        int mosNo = 0;
+        String queryStatement;
+
+        queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_SERIES + " = '"
+                + series + "' and " + KEY_FORMAT + " = '" + format + "'";
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            mosNo = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow(KEY_MOS_NO)));;
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        if(swipe.equals("leftSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_MOS_NO + " > "
+                    + mosNo + " and " + KEY_FORMAT + " = '" + format + "' order by " + KEY_MOS_NO;
+
+        }
+        else if(swipe.equals("rightSwipe"))
+        {
+            queryStatement = "select * from " + DATABASE_TABLE + " where " + KEY_MOS_NO + " < "
+                    + mosNo + " and " + KEY_FORMAT + " = '" + format + "' order by " + KEY_MOS_NO
+                    + " desc";
+        }
+
+        cursor = mysqlitedb.rawQuery(queryStatement,null);
+
+        if(cursor.moveToFirst())
+        {
+            containerMoSDetails.series = cursor.getString(cursor.getColumnIndexOrThrow(KEY_SERIES));
+        }
+        else
+        {
+            containerMoSDetails.series = series;
+
+        }
+
+        if(!cursor.isClosed())
+        {
+            cursor.close();
+        }
+
+        return containerMoSDetails;
+    }
+
 }

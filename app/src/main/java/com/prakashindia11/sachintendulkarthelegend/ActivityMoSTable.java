@@ -4,13 +4,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Prakash on 13-09-2016.
- * Last Edit : 18-09-2016
+ * Last Edit : 02-11-2016
  */
 public class ActivityMoSTable extends Activity
 {
+    private GestureDetector gestureDetector;
+
+    String format,series;
+
     TextView TextViewFormat, TextViewOpponent, TextViewSeries, TextViewMatches, TextViewInnings;
     TextView TextViewNotOut, TextViewRuns, TextViewHighScore, TextViewAverage, TextViewStrikeRate;
     TextView TextView100S, TextView50S, TextViewBowlingWickets, TextViewCatches;
@@ -26,7 +31,12 @@ public class ActivityMoSTable extends Activity
 
         setContentView(R.layout.mostable);
 
+        gestureDetector = new GestureDetector(new SwipeGestureDetector());
         initializeTextViews();
+
+        Bundle bundle = getIntent().getExtras();
+        format = bundle.getString("format");
+        series = bundle.getString("series");
         setTextViews();
     }
 
@@ -50,9 +60,6 @@ public class ActivityMoSTable extends Activity
 
     private void setTextViews()
     {
-        Bundle bundle = getIntent().getExtras();
-        String series = bundle.getString("series");
-
         DBMoS dbMoS = new DBMoS(this);
         dbMoS.openDatabase();
         ContainerMoSDetails containerMoSDetails = dbMoS.getMoSDetails(series);
@@ -72,5 +79,84 @@ public class ActivityMoSTable extends Activity
         TextView50S.setText(containerMoSDetails.fifties);
         TextViewBowlingWickets.setText(containerMoSDetails.bowlingWickets);
         TextViewCatches.setText(containerMoSDetails.catches);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        if(gestureDetector.onTouchEvent(event))
+        {
+            return true;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
+    /* Event to perform on Left Swipe (Forward) */
+    private void onLeftSwipe()
+    {
+        String swipe = "leftSwipe";
+        DBMoS dbMoS = new DBMoS(this);
+        dbMoS.openDatabase();
+        ContainerMoSDetails containerMoSDetails = dbMoS.getPreviousOrNextSeries(format,series,swipe);
+        dbMoS.closeDatabase();
+
+        series = containerMoSDetails.series;
+
+        setTextViews();
+    }
+
+    /* Event to perform on Right Swipe (Backward) */
+    private void onRightSwipe()
+    {
+        String swipe = "rightSwipe";
+
+        DBMoS dbMoS = new DBMoS(this);
+        dbMoS.openDatabase();
+        ContainerMoSDetails containerMoSDetails = dbMoS.getPreviousOrNextSeries(format,series,swipe);
+        dbMoS.closeDatabase();
+
+        series = containerMoSDetails.series;
+
+        setTextViews();
+    }
+
+    private class SwipeGestureDetector extends GestureDetector.SimpleOnGestureListener
+    {
+        private static final int SWIPE_MIN_DISTANCE = 120;
+        private static final int SWIPE_MAX_OFF_PATH = 200;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+        {
+            try
+            {
+                float differenceAbs = Math.abs(e1.getY() - e2.getY());
+                float difference = e1.getX() - e2.getX();
+
+                if(differenceAbs > SWIPE_MAX_OFF_PATH)
+                {
+                    return false;
+                }
+
+                /* Left Swipe */
+                if(difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoSTable.this.onLeftSwipe();
+                }
+                /* Right Swipe */
+                else if(-difference > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY)
+                {
+                    ActivityMoSTable.this.onRightSwipe();
+                }
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+
+            return false;
+        }
     }
 }

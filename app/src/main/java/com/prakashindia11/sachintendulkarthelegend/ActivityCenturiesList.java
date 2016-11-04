@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Prakash on 14-09-2016.
- * Last Edit : 17-09-2016
+ * Last Edit : 02-11-2016
  */
 public class ActivityCenturiesList extends Activity
 {
@@ -132,8 +132,14 @@ public class ActivityCenturiesList extends Activity
     private void callCenturiesTableActivity(AdapterView<?> parent, int position)
     {
         String centuryNumber = String.valueOf(parent.getItemAtPosition(position)).replaceAll("[^0-9]","");
+        String format = tabHost.getCurrentTabTag();
+        if(format.equals("All"))
+        {
+            format = "Test','ODI";
+        }
         Bundle bundle = new Bundle();
         bundle.putString("centuryNumber",centuryNumber);
+        bundle.putString("format",format);
         intent = new Intent("com.prakashindia11.sachintendulkarthelegend.ActivityCenturiesTable");
         intent.putExtras(bundle);
         startActivity(intent);
